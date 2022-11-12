@@ -4,9 +4,9 @@ plugins {
     id 'maven-publish'
 }
 
-
 group 'ru.demonorium'
-version System.getenv('RELEASE_VERSION') ?: "1.0"
+version "1.2"
+description 'Simple concepts'
 
 JavaVersion javaVersion = JavaVersion.VERSION_13
 project.ext.set('author', 'Demonorium')
@@ -17,6 +17,7 @@ project.ext.set('mail', 'demonorium@yandex.ru')
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -47,7 +48,7 @@ def customizePom(pom) {
         }
 
         root.children().last() + {
-            description 'Simple api for all Demonorium modules'
+            description rootProject.description
             name rootProject.name
             url project.projectRepository
             organization {
@@ -60,8 +61,8 @@ def customizePom(pom) {
             }
             licenses {
                 license {
-                    name 'Creative Commons Zero v1.0 Universal'
-                    url 'https://creativecommons.org/publicdomain/zero/1.0/'
+                    name 'Apache License 2.0'
+                    url 'https://www.apache.org/licenses/LICENSE-2.0'
                 }
             }
             scm {
@@ -95,13 +96,13 @@ publishing {
         maven {
             url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             credentials {
-                //username sonatypeUsername
-                //password sonatypePassword
+                username sonatypeUsername
+                password sonatypePassword
             }
         }
     }
 }
-//
-//signing {
-//    sign publishing.publications
-//}
+
+signing {
+    sign publishing.publications
+}
