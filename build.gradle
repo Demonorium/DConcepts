@@ -104,5 +104,7 @@ publishing {
 }
 
 signing {
-    sign publishing.publications
+    if (properties['needsign']) {
+        sign publishing.publications
+    }
 }
